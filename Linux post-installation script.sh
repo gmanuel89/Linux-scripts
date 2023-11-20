@@ -67,9 +67,30 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
 		sudo apt install -y kubuntu-restricted-extras
 		sudo apt autoclean && sudo apt clean && sudo apt autoremove
+		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut
+		flatpak install flathub -y org.gnome.Boxes
+	
+	## Pop!_OS
+	elif [ "${OS}" = "Pop!_OS" ] && [ "${DESKTOP_SESSION}" = "pop" ]; then
+		sudo apt purge libreoffice* geary*
+		sudo apt update && sudo apt full-upgrade -y
+		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
+		#sudo apt install -y ubuntu-restricted-extras
+		sudo apt autoclean && sudo apt clean && sudo apt autoremove
+		flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut
+		flatpak install flathub -y org.gnome.Boxes
 	
 	## KDE neon
 	elif [ "${OS}" = "KDE neon" ] && [ "${DESKTOP_SESSION}" = "plasma" ]; then
+		sudo pkcon refresh && sudo pkcon update -y
+		sudo pkcon install -y kontact
+		sudo pkcon install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
+		sudo apt install -y fonts-open-sans ttf-mscorefonts-installer #it does not work with pkcon
+		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut
+		flatpak install flathub -y org.gnome.Boxes
 	
 	## Fedora workstation
 	elif [ "${OS}" = "Fedora Linux" ] && [ "${DESKTOP_SESSION}" = "gnome" ]; then
@@ -92,7 +113,6 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam # org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.Thunderbird com.brave.Browser
 		flatpak install flathub -y org.gnome.Boxes
 	
-	
 	## Fedora KDE
 	elif [ "${OS}" = "Fedora Linux" ] && [ "${DESKTOP_SESSION}" = "plasma" ]; then
 		sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
@@ -110,6 +130,38 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo dnf install -y curl cabextract xorg-x11-font-utils fontconfig https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
 		sudo dnf clean all && sudo dnf upgrade --refresh
 		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam
+		flatpak install flathub -y org.gnome.Boxes
+	
+	## openSUSE Tumbleweed KDE
+	elif [ "${OS}" = "openSUSE Tumbleweed" ] && [ "${DESKTOP_SESSION}" = "default" ]; then
+		# on Leap
+		#sudo zypper ar -f -p 75 https://download.opensuse.org/repositories/KDE:/Qt5/openSUSE_Leap_$releasever KDE-Qt5
+		#sudo zypper ar -f -p 75 https://download.opensuse.org/repositories/KDE:/Frameworks5/openSUSE_Leap_$releasever KDE-Frameworks
+		#sudo zypper ar -f -p 75 https://download.opensuse.org/repositories/KDE:/Applications/KDE_Frameworks5_openSUSE_Leap_$releasever KDE-Applications
+		#sudo zypper ar -f -p 75 https://download.opensuse.org/repositories/KDE:/Extra/KDE_Applications_openSUSE_Leap_$releasever KDE-Extra
+		#sudo zypper ar -f -p 75 https://download.opensuse.org/repositories/Kernel:/stable:/Backport/standard/ kernel
+		#sudo zypper addrepo -cfp 90 https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Leap_$releasever/ packman
+		#sudo zypper ar -f -p 75 http://download.opensuse.org/repositories/M17N:/fonts/openSUSE_Leap_$releasever Fonts
+		sudo zypper addrepo -cfp 90 https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/ packman
+		sudo zypper refresh && sudo zypper -v dup --allow-vendor-change -y
+		sudo zypper install --from packman ffmpeg gstreamer-plugins-{good,bad,ugly,libav} libavcodec-full vlc-codecs
+		sudo zypper install kio-fuse kdenlive
+		sudo zypper install noto-sans-fonts noto-serif-fonts google-roboto-fonts
+		sudo zypper install fetchmsttfonts
+		sudo zypper install ibm-plex-sans-fonts ibm-plex-serif-fonts ibm-plex-mono-fonts
+	
+	## Tuxedo OS
+	elif [ "${OS}" = "Tuxedo OS" ] && [ "${DESKTOP_SESSION}" = "plasma" ]; then
+		sudo apt purge libreoffice*
+		sudo apt update && sudo apt dist-upgrade -y
+		sudo apt install -y kmail kalendar
+		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
+		sudo apt install -y fonts-open-sans ttf-mscorefonts-installer
+		sudo apt autoclean && sudo apt clean && sudo apt autoremove
+		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam
+		flatpak install flathub -y org.gnome.Boxes
 	
 	fi
 
