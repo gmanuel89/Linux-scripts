@@ -31,8 +31,18 @@ else
     VER=$(uname -r)
 fi
 
+## Get Desktop session
+DSKTP=$DESKTOP_SESSION
+# Check if it is WSL
+if [ "${DSKTP}" = "" ]; then
+	RELCMD=`uname -r`
+	if [[ "${RELCMD}" =~ "WSL" ]]; then
+		DSKTP="WSL"
+	fi
+fi
+
 ## Installation found
-echo "Found an installation of '${OS}' (version ${VER}) with the '${DESKTOP_SESSION}' desktop environment"
+echo "Found an installation of '${OS}' (version ${VER}) with the '${DSKTP}' desktop environment"
 
 ## Ask for confirmation
 read -p "Is this the correct configuration? " -n 1 -r
@@ -42,7 +52,7 @@ echo
 if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 
 	## Ubuntu Desktop
-	if [ "${OS}" = "Ubuntu" ] && [ "${DESKTOP_SESSION}" = "ubuntu" ]; then
+	if [ "${OS}" = "Ubuntu" ] && [ "${DSKTP}" = "ubuntu" ]; then
 		sudo apt purge -y libreoffice*
 		sudo apt update && sudo apt dist-upgrade -y
 		sudo apt install -y totem # samba smbclient
@@ -57,9 +67,14 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut # org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.Thunderbird com.brave.Browser com.valvesoftware.Steam
 		flatpak install flathub -y org.gnome.Boxes
+	
+	## Ubuntu WSL
+	elif [ "${OS}" = "Ubuntu" ] && [ "${DSKTP}" = "WSL" ]; then
+		sudo apt update && sudo apt dist-upgrade -y
+		sudo apt autoclean && sudo apt clean && sudo apt autoremove
 
 	## Kubuntu Desktop
-	elif [ "${OS}" = "Ubuntu" ] && [ "${DESKTOP_SESSION}" = "plasma" ]; then
+	elif [ "${OS}" = "Ubuntu" ] && [ "${DSKTP}" = "plasma" ]; then
 		sudo add-apt-repository ppa:kubuntu-ppa/backports
 		sudo add-apt-repository ppa:kubuntu-ppa/backports-extra
 		sudo apt update && sudo apt dist-upgrade -y
@@ -72,7 +87,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		flatpak install flathub -y org.gnome.Boxes
 	
 	## Pop!_OS
-	elif [ "${OS}" = "Pop!_OS" ] && [ "${DESKTOP_SESSION}" = "pop" ]; then
+	elif [ "${OS}" = "Pop!_OS" ] && [ "${DSKTP}" = "pop" ]; then
 		sudo apt purge libreoffice* geary*
 		sudo apt update && sudo apt full-upgrade -y
 		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
@@ -83,7 +98,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		flatpak install flathub -y org.gnome.Boxes
 	
 	## KDE neon
-	elif [ "${OS}" = "KDE neon" ] && [ "${DESKTOP_SESSION}" = "plasma" ]; then
+	elif [ "${OS}" = "KDE neon" ] && [ "${DSKTP}" = "plasma" ]; then
 		sudo pkcon refresh && sudo pkcon update -y
 		sudo pkcon install -y kontact
 		sudo pkcon install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
@@ -93,7 +108,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		flatpak install flathub -y org.gnome.Boxes
 	
 	## Fedora workstation
-	elif [ "${OS}" = "Fedora Linux" ] && [ "${DESKTOP_SESSION}" = "gnome" ]; then
+	elif [ "${OS}" = "Fedora Linux" ] && [ "${DSKTP}" = "gnome" ]; then
 		sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 		sudo dnf groupupdate core
 		sudo dnf remove libreoffice*
@@ -114,7 +129,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		flatpak install flathub -y org.gnome.Boxes
 	
 	## Fedora KDE
-	elif [ "${OS}" = "Fedora Linux" ] && [ "${DESKTOP_SESSION}" = "plasma" ]; then
+	elif [ "${OS}" = "Fedora Linux" ] && [ "${DSKTP}" = "plasma" ]; then
 		sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 		sudo dnf groupupdate core
 		sudo dnf remove libreoffice*
@@ -134,7 +149,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		flatpak install flathub -y org.gnome.Boxes
 	
 	## openSUSE Tumbleweed KDE
-	elif [ "${OS}" = "openSUSE Tumbleweed" ] && [ "${DESKTOP_SESSION}" = "default" ]; then
+	elif [ "${OS}" = "openSUSE Tumbleweed" ] && [ "${DSKTP}" = "default" ]; then
 		# on Leap
 		#sudo zypper ar -f -p 75 https://download.opensuse.org/repositories/KDE:/Qt5/openSUSE_Leap_$releasever KDE-Qt5
 		#sudo zypper ar -f -p 75 https://download.opensuse.org/repositories/KDE:/Frameworks5/openSUSE_Leap_$releasever KDE-Frameworks
@@ -152,7 +167,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo zypper install ibm-plex-sans-fonts ibm-plex-serif-fonts ibm-plex-mono-fonts
 	
 	## Tuxedo OS
-	elif [ "${OS}" = "Tuxedo OS" ] && [ "${DESKTOP_SESSION}" = "plasma" ]; then
+	elif [ "${OS}" = "Tuxedo OS" ] && [ "${DSKTP}" = "plasma" ]; then
 		sudo apt purge libreoffice*
 		sudo apt update && sudo apt dist-upgrade -y
 		sudo apt install -y kmail kalendar
