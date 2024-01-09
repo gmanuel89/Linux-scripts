@@ -72,6 +72,11 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 	elif [ "${OS}" = "Ubuntu" ] && [ "${DSKTP}" = "WSL" ]; then
 		sudo apt update && sudo apt dist-upgrade -y
 		sudo apt autoclean && sudo apt clean && sudo apt autoremove
+		sudo apt install -y python3-full python3-pip python3-venv
+		sudo apt install -y git
+		wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+		sudo add-apt-repository -y "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
+		sudo apt install -y --no-install-recommends r-base r-base-dev
 
 	## Kubuntu Desktop
 	elif [ "${OS}" = "Ubuntu" ] && [ "${DSKTP}" = "plasma" ]; then
