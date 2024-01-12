@@ -114,20 +114,20 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 	
 	## Fedora workstation
 	elif [ "${OS}" = "Fedora Linux" ] && [ "${DSKTP}" = "gnome" ]; then
-		sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-		sudo dnf groupupdate core
-		sudo dnf remove libreoffice*
-		sudo dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
-		sudo dnf groupupdate sound-and-video
-		sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
-		sudo dnf install lame\* --exclude=lame-devel
-		sudo dnf group upgrade --with-optional Multimedia
+		sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+		sudo dnf groupupdate -y core
+		sudo dnf remove -y libreoffice*
+		sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
+		sudo dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+		sudo dnf groupupdate -y sound-and-video
+		sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-plugin-libav --exclude=gstreamer1-plugins-bad-free-devel
+		sudo dnf install -y lame\* --exclude=lame-devel
+		sudo dnf group upgrade --with-optional -y Multimedia
 		# sudo dnf install libva-intel-driver
-		sudo dnf clean all && sudo dnf upgrade -y --refresh
 		sudo dnf install -y simple-scan gnome-tweaks gnome-boxes # samba-client samba epiphany soundconverter mp3gain
 		sudo dnf install -y xorg-x11-fonts-Type1 google-roboto* mozilla-fira* overpass-fonts overpass-mono-fonts redhat-text-fonts redhat-display-fonts google-carlito-fonts google-crosextra-caladea-fonts
 		sudo dnf install -y curl cabextract xorg-x11-font-utils fontconfig https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
-		sudo dnf clean all && sudo dnf upgrade --refresh
+		sudo dnf clean all && sudo dnf upgrade --refresh -y
 		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 		flatpak install flathub -y org.gnome.Extensions org.gnome.TextEditor org.gnome.Weather org.gnome.Contacts org.gnome.Calendar # de.haeckerfelix.Fragments
 		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam # org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.Thunderbird com.brave.Browser
@@ -135,20 +135,20 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 	
 	## Fedora KDE
 	elif [ "${OS}" = "Fedora Linux" ] && [ "${DSKTP}" = "plasma" ]; then
-		sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-		sudo dnf groupupdate core
-		sudo dnf remove libreoffice*
-		sudo dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
-		sudo dnf groupupdate sound-and-video
-		sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
-		sudo dnf install lame\* --exclude=lame-devel
-		sudo dnf group upgrade --with-optional Multimedia
+		sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+		sudo dnf groupupdate -y core
+		sudo dnf remove -y libreoffice*
+		sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
+		sudo dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+		sudo dnf groupupdate -y sound-and-video
+		sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-plugin-libav --exclude=gstreamer1-plugins-bad-free-devel
+		sudo dnf install -y lame\* --exclude=lame-devel
+		sudo dnf group upgrade --with-optional -y Multimedia
 		# sudo dnf install libva-intel-driver
-		sudo dnf clean all && sudo dnf upgrade -y --refresh
 		sudo dnf install -y skanpage kid3 # samba-client samba
 		sudo dnf install -y xorg-x11-fonts-Type1 google-roboto* mozilla-fira* overpass-fonts overpass-mono-fonts redhat-text-fonts redhat-display-fonts google-carlito-fonts google-crosextra-caladea-fonts
 		sudo dnf install -y curl cabextract xorg-x11-font-utils fontconfig https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
-		sudo dnf clean all && sudo dnf upgrade --refresh
+		sudo dnf clean all && sudo dnf upgrade --refresh -y
 		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam
 		flatpak install flathub -y org.gnome.Boxes
