@@ -127,7 +127,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo dnf install -y simple-scan gnome-tweaks gnome-boxes # samba-client samba epiphany soundconverter mp3gain
 		sudo dnf install -y xorg-x11-fonts-Type1 google-roboto* mozilla-fira* overpass-fonts overpass-mono-fonts redhat-text-fonts redhat-display-fonts google-carlito-fonts google-crosextra-caladea-fonts
 		sudo dnf install -y curl cabextract xorg-x11-font-utils fontconfig https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
-		sudo dnf install -y gnome-shell-extension-appindicator gnome-shell-extension-drive-menu gnome-shell-extension-places-menu gnome-shell-extension-caffeine
+		sudo dnf install -y gnome-extensions-app gnome-shell-extension-appindicator gnome-shell-extension-drive-menu gnome-shell-extension-places-menu gnome-shell-extension-caffeine
 		sudo dnf clean all && sudo dnf upgrade --refresh -y
 		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 		# flatpak install flathub -y org.gnome.Extensions org.gnome.TextEditor org.gnome.Weather org.gnome.Contacts org.gnome.Calendar # de.haeckerfelix.Fragments
