@@ -58,16 +58,22 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo apt install -y totem # samba smbclient
 		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
 		sudo apt install -y ubuntu-restricted-extras
-		sudo apt install -y steam
+		# sudo apt install -y steam
 		sudo apt autoclean && sudo apt clean && sudo apt autoremove
-		# sudo snap install -y onlyoffice-desktopeditors spotify kdenlive vlc telegram-desktop gnome-boxes # libreoffice bitwarden thunderbird brave steam
-		# sudo snap install -y shotcut --classic
-		sudo add-apt-repository -y ppa:flatpak/stable
-		sudo apt update && sudo apt install -y flatpak
-		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut # org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.Thunderbird com.brave.Browser com.valvesoftware.Steam
-		flatpak install flathub -y org.gnome.Boxes
-	
+		## Ask for snap vs flatpak
+		read -p "Do you want to go with snaps (otherwise flatpak will be enabled)? " -n 1 -r
+		if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
+			sudo snap install -y onlyoffice-desktopeditors spotify kdenlive vlc telegram-desktop gnome-boxes # libreoffice bitwarden thunderbird brave steam
+			sudo snap install -y shotcut --classic
+		else
+			sudo add-apt-repository -y ppa:flatpak/stable
+			sudo apt update && sudo apt install -y flatpak
+			sudo apt install gnome-software-plugin-flatpak
+			flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+			flatpak install flathub -y org.gnome.Evolution org.gnome.Boxes 
+			flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam # org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.Thunderbird com.brave.Browser
+		fi
+
 	## Ubuntu WSL
 	elif [ "${OS}" = "Ubuntu" ] && [ "${DSKTP}" = "WSL" ]; then
 		sudo apt update && sudo apt dist-upgrade -y
