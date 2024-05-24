@@ -55,10 +55,10 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 	if [ "${OS}" = "Ubuntu" ] && [ "${DSKTP}" = "ubuntu" ]; then
 		sudo apt purge -y libreoffice*
 		sudo apt update && sudo apt dist-upgrade -y
-		sudo apt install -y totem # samba smbclient
-		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
-		sudo apt install -y ubuntu-restricted-extras
-		# sudo apt install -y steam
+		sudo apt install -y openssh-server # samba smbclient
+		sudo apt install -y ttf-mscorefonts-installer fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
+		#sudo apt install -y ubuntu-restricted-extras
+		#sudo apt install -y steam
 		sudo apt autoclean && sudo apt clean && sudo apt autoremove
 		## Ask for snap vs flatpak
 		read -p "Do you want to go with snaps (otherwise flatpak will be enabled)? " -n 1 -r
@@ -68,10 +68,13 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		else
 			sudo add-apt-repository -y ppa:flatpak/stable
 			sudo apt update && sudo apt install -y flatpak
+			sudo snap remove firefox
 			#sudo apt install gnome-software-plugin-flatpak
 			flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-			flatpak install flathub -y org.gnome.Evolution org.gnome.Boxes 
-			flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam # org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.Thunderbird com.brave.Browser
+			flatpak install flathub -y org.mozilla.firefox
+			sudo apt purge -y gnome-clocks eog gnome-calculator gnome-contacts gnome-calendar gnome-weather
+			flatpak install flathub -y org.gnome.clocks org.gnome.Loupe org.gnome.Calculator org.gnome.Contacts org.gnome.Calendar org.gnome.Weather org.gnome.Maps org.gnome.Totem org.gnome.Evolution org.gnome.Boxes
+			flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam # org.kde.kdenlive org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.Thunderbird com.brave.Browser com.vivaldi.Vivaldi
 		fi
 
 	## Ubuntu WSL
