@@ -133,14 +133,14 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo dnf install -y lame\* --exclude=lame-devel
 		sudo dnf group upgrade --with-optional -y Multimedia
 		# sudo dnf install libva-intel-driver
-		sudo dnf install -y simple-scan gnome-tweaks gnome-boxes # samba-client samba epiphany soundconverter mp3gain
+		sudo dnf install -y simple-scan loupe gnome-tweaks gnome-boxes gnome-calculator gnome-contacts gnome-calendar gnome-weather gnome-maps gnome-clocks evolution # samba-client samba epiphany soundconverter mp3gain
 		sudo dnf install -y xorg-x11-fonts-Type1 google-roboto* mozilla-fira* overpass-fonts overpass-mono-fonts redhat-text-fonts redhat-display-fonts google-carlito-fonts google-crosextra-caladea-fonts
 		sudo dnf install -y curl cabextract xorg-x11-font-utils fontconfig https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
 		sudo dnf install -y gnome-extensions-app gnome-shell-extension-appindicator gnome-shell-extension-drive-menu gnome-shell-extension-places-menu gnome-shell-extension-caffeine
 		sudo dnf clean all && sudo dnf upgrade --refresh -y
 		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-		# flatpak install flathub -y org.gnome.Extensions org.gnome.TextEditor org.gnome.Weather org.gnome.Contacts org.gnome.Calendar # de.haeckerfelix.Fragments
-		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam # org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.Thunderbird com.brave.Browser
+		# flatpak install flathub -y org.gnome.Extensions # de.haeckerfelix.Fragments
+		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam # org.kde.kdenlive org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.Thunderbird com.brave.Browser
 		# flatpak install flathub -y org.gnome.Boxes
 	
 	## Fedora KDE
