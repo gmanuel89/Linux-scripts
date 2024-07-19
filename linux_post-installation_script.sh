@@ -63,7 +63,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		## Ask for snap vs flatpak
 		read -p "Do you want to go with snaps (otherwise flatpak will be enabled)? " -n 1 -r
 		if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
-			sudo snap install -y onlyoffice-desktopeditors spotify kdenlive vlc telegram-desktop gnome-boxes # libreoffice bitwarden thunderbird brave steam
+			sudo snap install -y onlyoffice-desktopeditors spotify vlc telegram-desktop gnome-boxes # kdenlive libreoffice bitwarden thunderbird brave steam
 			sudo snap install -y shotcut --classic
 		else
 			sudo add-apt-repository -y ppa:flatpak/stable
