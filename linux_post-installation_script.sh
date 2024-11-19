@@ -74,7 +74,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 			flatpak install flathub -y org.mozilla.firefox
 			sudo apt purge -y gnome-clocks eog gnome-calculator gnome-contacts gnome-calendar gnome-weather
 			flatpak install flathub -y org.gnome.clocks org.gnome.Loupe org.gnome.Calculator org.gnome.Contacts org.gnome.Calendar org.gnome.Weather org.gnome.Maps org.gnome.Totem org.gnome.Evolution org.gnome.Boxes
-			flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam # org.kde.kdenlive org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.Thunderbird com.brave.Browser com.vivaldi.Vivaldi
+			flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam # org.kde.kdenlive org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.Thunderbird com.brave.Browser com.vivaldi.Vivaldi net.codelogistics.webapps
 		fi
 
 	## Ubuntu WSL
