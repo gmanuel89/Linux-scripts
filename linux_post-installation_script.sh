@@ -63,14 +63,14 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		## Ask for snap vs flatpak
 		read -p "Do you want to go with snaps (otherwise flatpak will be enabled)? " -n 1 -r
 		if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
-			sudo snap install -y onlyoffice-desktopeditors spotify vlc telegram-desktop gnome-boxes # kdenlive libreoffice bitwarden thunderbird brave steam
-			sudo snap install -y shotcut --classic
+			sudo snap install onlyoffice-desktopeditors spotify vlc telegram-desktop gnome-boxes # kdenlive libreoffice bitwarden thunderbird brave steam
+			sudo snap install shotcut --classic
 		else
+			sudo snap remove firefox snap-store
 			sudo add-apt-repository -y ppa:flatpak/stable
 			sudo apt update && sudo apt install -y flatpak
-			sudo snap remove firefox
-			#sudo apt install gnome-software-plugin-flatpak
 			flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+			sudo apt install --no-install-recommends gnome-software gnome-software-plugin-flatpak
 			flatpak install flathub -y org.mozilla.firefox
 			sudo apt purge -y gnome-clocks eog gnome-calculator gnome-contacts gnome-calendar gnome-weather
 			flatpak install flathub -y org.gnome.clocks org.gnome.Loupe org.gnome.Calculator org.gnome.Contacts org.gnome.Calendar org.gnome.Weather org.gnome.Maps org.gnome.Totem org.gnome.Evolution org.gnome.Boxes
