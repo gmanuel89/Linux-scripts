@@ -197,6 +197,19 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 	
 	fi
 
+	## Zorin OS
+	elif [ "${OS}" = "Zorin OS" ] && [ "${DSKTP}" = "zorin" ]; then
+		sudo apt purge libreoffice* gnome-photos rhythmbox*
+		sudo apt purge snapd* gnome-software-plugin-snap
+		sudo apt update && sudo apt dist-upgrade -y
+		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
+		sudo apt install -y fonts-open-sans ttf-mscorefonts-installer
+		sudo apt autoclean && sudo apt clean && sudo apt autoremove
+		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam org.videolan.VLC
+		flatpak install flathub -y org.gnome.Boxes
+	fi
+
 else
 echo "Aborting..."
 fi
