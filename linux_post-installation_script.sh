@@ -102,13 +102,13 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 	
 	## Pop!_OS
 	elif [ "${OS}" = "Pop!_OS" ] && [ "${DSKTP}" = "pop" ]; then
-		sudo apt purge libreoffice* geary*
+		sudo apt purge libreoffice* geary* thunderbird*
 		sudo apt update && sudo apt full-upgrade -y
 		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
 		#sudo apt install -y ubuntu-restricted-extras
 		sudo apt autoclean && sudo apt clean && sudo apt autoremove
 		flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut
+		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut # org.kde.kdenlive net.codelogistics.webapps
 		flatpak install flathub -y org.gnome.Boxes
 	
 	## KDE neon
