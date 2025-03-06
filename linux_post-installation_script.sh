@@ -211,6 +211,8 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam org.videolan.VLC
 		flatpak install flathub -y org.gnome.Boxes
+		# gsettings get org.gnome.software packaging-format-preference
+		gsettings set org.gnome.software packaging-format-preference "['flatpak:flathub', 'flatpak', 'deb', 'snap']"
 	fi
 
 else
