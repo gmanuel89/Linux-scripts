@@ -70,11 +70,14 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 			sudo add-apt-repository -y ppa:flatpak/stable
 			sudo apt update && sudo apt install -y flatpak
 			flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+			sudo apt purge snapd*
 			sudo apt install --no-install-recommends gnome-software gnome-software-plugin-flatpak
 			flatpak install flathub -y org.mozilla.firefox
-			sudo apt purge -y gnome-clocks eog gnome-calculator gnome-contacts gnome-calendar gnome-weather
-			flatpak install flathub -y org.gnome.clocks org.gnome.Loupe org.gnome.Calculator org.gnome.Contacts org.gnome.Calendar org.gnome.Weather org.gnome.Maps org.gnome.Totem org.gnome.Evolution org.gnome.Boxes
+			sudo apt purge -y gnome-clocks eog evince gnome-calculator gnome-contacts gnome-calendar gnome-weather
+			flatpak install flathub -y org.gnome.clocks org.gnome.Loupe org.gnome.Papers org.gnome.Calculator org.gnome.Contacts org.gnome.Calendar org.gnome.Weather org.gnome.Maps org.gnome.Totem org.gnome.Evolution org.gnome.Boxes
 			flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam # org.kde.kdenlive org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.Thunderbird com.brave.Browser com.vivaldi.Vivaldi net.codelogistics.webapps
+			# gsettings get org.gnome.software packaging-format-preference
+			gsettings set org.gnome.software packaging-format-preference "['flatpak:flathub', 'flatpak', 'deb', 'snap']"
 		fi
 
 	## Ubuntu WSL
