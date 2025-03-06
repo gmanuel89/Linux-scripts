@@ -51,33 +51,48 @@ echo
 ## YES
 if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 
-	## Ubuntu Desktop
-	if [ "${OS}" = "Ubuntu" ] && [ "${DSKTP}" = "ubuntu" ]; then
-		sudo apt purge -y libreoffice*
-		sudo apt update && sudo apt dist-upgrade -y
-		sudo apt install -y openssh-server # samba smbclient
-		sudo apt install -y ttf-mscorefonts-installer fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
-		#sudo apt install -y ubuntu-restricted-addons
-		#sudo apt install -y steam
-		sudo apt autoclean && sudo apt clean && sudo apt autoremove
-		## Ask for snap vs flatpak
-		read -p "Do you want to go with snaps (otherwise flatpak will be enabled)? " -n 1 -r
-		if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
-			sudo snap install onlyoffice-desktopeditors spotify vlc telegram-desktop gnome-boxes # kdenlive libreoffice bitwarden thunderbird brave steam
-			sudo snap install shotcut --classic
-		else
-			sudo snap remove firefox snap-store
-			sudo add-apt-repository -y ppa:flatpak/stable
-			sudo apt update && sudo apt install -y flatpak
+	## Ubuntu
+	if [ "${OS}" = "Ubuntu" ]; then
+		## Ubuntu Desktop
+		if [ "${DSKTP}" = "ubuntu" ]; then
+			sudo apt purge -y libreoffice*
+			sudo apt update && sudo apt dist-upgrade -y
+			sudo apt install -y openssh-server # samba smbclient
+			sudo apt install -y ttf-mscorefonts-installer fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
+			#sudo apt install -y ubuntu-restricted-addons
+			#sudo apt install -y steam
+			sudo apt autoclean && sudo apt clean && sudo apt autoremove
+			## Ask for snap vs flatpak
+			read -p "Do you want to go with snaps (otherwise flatpak will be enabled)? " -n 1 -r
+			if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
+				sudo snap install onlyoffice-desktopeditors spotify vlc telegram-desktop gnome-boxes # kdenlive libreoffice bitwarden thunderbird brave steam
+				sudo snap install shotcut --classic
+			else
+				sudo snap remove firefox snap-store
+				sudo add-apt-repository -y ppa:flatpak/stable
+				sudo apt update && sudo apt install -y flatpak
+				flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+				sudo apt purge snapd*
+				sudo apt install --no-install-recommends gnome-software gnome-software-plugin-flatpak
+				flatpak install flathub -y org.mozilla.firefox
+				sudo apt purge -y gnome-clocks eog evince gnome-calculator gnome-contacts gnome-calendar gnome-weather
+				flatpak install flathub -y org.gnome.clocks org.gnome.Loupe org.gnome.Papers org.gnome.Calculator org.gnome.Contacts org.gnome.Calendar org.gnome.Weather org.gnome.Maps org.gnome.Totem org.gnome.Evolution org.gnome.Boxes
+				flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam # org.kde.kdenlive org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.Thunderbird com.brave.Browser com.vivaldi.Vivaldi net.codelogistics.webapps
+				# gsettings get org.gnome.software packaging-format-preference
+				gsettings set org.gnome.software packaging-format-preference "['flatpak:flathub', 'flatpak', 'deb', 'snap']"
+			fi
+		## Kubuntu Desktop
+		elif [ "${DSKTP}" = "plasma" ]; then
+			sudo add-apt-repository ppa:kubuntu-ppa/backports
+			sudo add-apt-repository ppa:kubuntu-ppa/backports-extra
+			sudo apt update && sudo apt dist-upgrade -y
+			sudo apt install -y kontact kalendar
+			sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
+			sudo apt install -y kubuntu-restricted-extras
+			sudo apt autoclean && sudo apt clean && sudo apt autoremove
 			flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-			sudo apt purge snapd*
-			sudo apt install --no-install-recommends gnome-software gnome-software-plugin-flatpak
-			flatpak install flathub -y org.mozilla.firefox
-			sudo apt purge -y gnome-clocks eog evince gnome-calculator gnome-contacts gnome-calendar gnome-weather
-			flatpak install flathub -y org.gnome.clocks org.gnome.Loupe org.gnome.Papers org.gnome.Calculator org.gnome.Contacts org.gnome.Calendar org.gnome.Weather org.gnome.Maps org.gnome.Totem org.gnome.Evolution org.gnome.Boxes
-			flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam # org.kde.kdenlive org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.Thunderbird com.brave.Browser com.vivaldi.Vivaldi net.codelogistics.webapps
-			# gsettings get org.gnome.software packaging-format-preference
-			gsettings set org.gnome.software packaging-format-preference "['flatpak:flathub', 'flatpak', 'deb', 'snap']"
+			flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut
+			flatpak install flathub -y org.gnome.Boxes
 		fi
 
 	## Ubuntu WSL
@@ -89,19 +104,6 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
 		sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
 		sudo apt install -y --no-install-recommends r-base r-base-dev
-
-	## Kubuntu Desktop
-	elif [ "${OS}" = "Ubuntu" ] && [ "${DSKTP}" = "plasma" ]; then
-		sudo add-apt-repository ppa:kubuntu-ppa/backports
-		sudo add-apt-repository ppa:kubuntu-ppa/backports-extra
-		sudo apt update && sudo apt dist-upgrade -y
-		sudo apt install -y kontact kalendar
-		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
-		sudo apt install -y kubuntu-restricted-extras
-		sudo apt autoclean && sudo apt clean && sudo apt autoremove
-		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut
-		flatpak install flathub -y org.gnome.Boxes
 	
 	## Pop!_OS
 	elif [ "${OS}" = "Pop!_OS" ] && [ "${DSKTP}" = "pop" ]; then
