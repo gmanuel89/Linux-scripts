@@ -188,9 +188,9 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 	
 	## Tuxedo OS
 	elif [ "${OS}" = "Tuxedo OS" ] && [ "${DSKTP}" = "plasma" ]; then
-		sudo apt purge libreoffice*
+		sudo apt purge libreoffice* elisa* kamoso*
 		sudo apt update && sudo apt dist-upgrade -y
-		sudo apt install -y kmail kalendar
+		sudo apt install -y krdp merkuro
 		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
 		sudo apt install -y fonts-open-sans ttf-mscorefonts-installer
 		sudo apt autoclean && sudo apt clean && sudo apt autoremove
