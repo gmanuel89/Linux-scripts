@@ -105,6 +105,27 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
 		sudo apt install -y --no-install-recommends r-base r-base-dev
 	
+	## Debian
+	elif [ "${OS}" = "Debian GNU/Linux" ]; then
+		sudo apt update && sudo apt dist-upgrade -y
+		sudo apt install -y openssh-server # samba smbclient
+		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode #ttf-mscorefonts-installer
+		sudo apt clean && sudo apt autoclean && sudo apt autoremove
+		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+		flatpak install flathub -y org.mozilla.firefox org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam
+		## Debian KDE
+		if [ "${DSKTP}" = "plasma" ]; then
+			sudo apt purge -y firefox konqueror juk dragonplayer gimp
+			sudo apt install -y krdp
+			flatpak install flathub -y org.gnome.Boxes
+		## Debian GNOME
+		elif [ "${DSKTP}" = "gnome" ]; then
+			sudo apt purge -y firefox
+			sudo apt install -y gnome-boxes
+			# gsettings get org.gnome.software packaging-format-preference
+			gsettings set org.gnome.software packaging-format-preference "['flatpak:flathub', 'flatpak', 'deb']"
+		fi
+	
 	## Pop!_OS
 	elif [ "${OS}" = "Pop!_OS" ] && [ "${DSKTP}" = "pop" ]; then
 		sudo apt purge libreoffice* geary* thunderbird*
