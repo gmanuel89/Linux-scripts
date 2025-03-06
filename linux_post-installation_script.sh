@@ -127,14 +127,14 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 	## Fedora workstation
 	elif [ "${OS}" = "Fedora Linux" ] && [ "${DSKTP}" = "gnome" ]; then
 		sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-		sudo dnf groupupdate -y core
+		sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
+		sudo dnf update -y @core
 		sudo dnf remove -y libreoffice* rhythmbox*
 		sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
-		sudo dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
-		sudo dnf groupupdate -y sound-and-video
+		sudo dnf update -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 		sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-plugin-libav --exclude=gstreamer1-plugins-bad-free-devel
 		sudo dnf install -y lame\* --exclude=lame-devel
-		sudo dnf group upgrade --with-optional -y Multimedia
+		sudo dnf upgrade -y @multimedia
 		# sudo dnf install libva-intel-driver
 		sudo dnf install -y simple-scan loupe gnome-tweaks gnome-boxes gnome-calculator gnome-contacts gnome-calendar gnome-weather gnome-maps gnome-clocks evolution # samba-client samba epiphany soundconverter mp3gain
 		sudo dnf install -y xorg-x11-fonts-Type1 google-roboto* mozilla-fira* overpass-fonts overpass-mono-fonts redhat-text-fonts redhat-display-fonts google-carlito-fonts google-crosextra-caladea-fonts
@@ -145,7 +145,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		# flatpak install flathub -y org.gnome.Extensions # de.haeckerfelix.Fragments
 		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam # org.kde.kdenlive org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.Thunderbird com.brave.Browser net.codelogistics.webapps
 		# flatpak install flathub -y org.gnome.Boxes
-		# gsettings set org.gnome.software packaging-format-preference
+		# gsettings get org.gnome.software packaging-format-preference
 		gsettings set org.gnome.software packaging-format-preference "['flatpak:flathub', 'flatpak:fedora-testing', 'flatpak:fedora', 'rpm']"
 	
 	## Fedora KDE
