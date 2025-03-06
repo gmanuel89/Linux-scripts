@@ -57,7 +57,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo apt update && sudo apt dist-upgrade -y
 		sudo apt install -y openssh-server # samba smbclient
 		sudo apt install -y ttf-mscorefonts-installer fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
-		#sudo apt install -y ubuntu-restricted-extras
+		#sudo apt install -y ubuntu-restricted-addons
 		#sudo apt install -y steam
 		sudo apt autoclean && sudo apt clean && sudo apt autoremove
 		## Ask for snap vs flatpak
