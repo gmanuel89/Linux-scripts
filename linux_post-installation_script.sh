@@ -109,18 +109,19 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 	elif [ "${OS}" = "Debian GNU/Linux" ]; then
 		sudo apt update && sudo apt dist-upgrade -y
 		sudo apt install -y openssh-server # samba smbclient
-		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode #ttf-mscorefonts-installer
+		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode fonts-inter #ttf-mscorefonts-installer
 		sudo apt clean && sudo apt autoclean && sudo apt autoremove
+		sudo apt install flatpak
 		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-		flatpak install flathub -y org.mozilla.firefox org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam
+		flatpak install flathub -y org.mozilla.firefox org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop com.valvesoftware.Steam #org.shotcut.Shotcut org.kde.kdenlive
 		## Debian KDE
 		if [ "${DSKTP}" = "plasma" ]; then
-			sudo apt purge -y firefox konqueror juk dragonplayer gimp
+			sudo apt purge -y firefox-esr konqueror juk dragonplayer gimp
 			sudo apt install -y krdp
 			flatpak install flathub -y org.gnome.Boxes
 		## Debian GNOME
 		elif [ "${DSKTP}" = "gnome" ]; then
-			sudo apt purge -y firefox
+			sudo apt purge -y firefox-esr
 			sudo apt install -y gnome-boxes
 			# gsettings get org.gnome.software packaging-format-preference
 			gsettings set org.gnome.software packaging-format-preference "['flatpak:flathub', 'flatpak', 'deb']"
@@ -150,16 +151,16 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 	## Fedora workstation
 	elif [ "${OS}" = "Fedora Linux" ]; then
 		sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-		sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
+		#sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
 		sudo dnf update -y @core
-		sudo dnf remove -y libreoffice* rhythmbox*
+		sudo dnf remove -y libreoffice* rhythmbox* dragon* elisa-player*
 		sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
 		sudo dnf update -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 		sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-plugin-libav --exclude=gstreamer1-plugins-bad-free-devel
 		sudo dnf install -y lame\* --exclude=lame-devel
 		sudo dnf upgrade -y @multimedia
 		# sudo dnf install libva-intel-driver
-		sudo dnf install -y xorg-x11-fonts-Type1 google-roboto* mozilla-fira* overpass-fonts overpass-mono-fonts redhat-text-fonts redhat-display-fonts google-carlito-fonts google-crosextra-caladea-fonts
+		sudo dnf install -y google-roboto* mozilla-fira* overpass-fonts overpass-mono-fonts redhat-text-fonts redhat-display-fonts google-carlito-fonts google-crosextra-caladea-fonts rsms-inter-fonts #xorg-x11-fonts-Type1
 		sudo dnf install -y curl cabextract xorg-x11-font-utils fontconfig https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
 		sudo dnf clean all && sudo dnf upgrade --refresh -y
 		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
@@ -175,7 +176,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		## Fedora KDE
 		elif [ "${DSKTP}" = "plasma" ]; then	
 			sudo dnf install -y skanpage kid3 # samba-client samba
-			flatpak install flathub -y org.kde.kdenlive
+			flatpak install flathub -y org.kde.kdenlive org.kde.haruna
 			flatpak install flathub -y org.gnome.Boxes
 		fi
 	
