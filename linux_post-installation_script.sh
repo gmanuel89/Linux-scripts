@@ -114,6 +114,9 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo apt install flatpak
 		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 		flatpak install flathub -y org.mozilla.firefox org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop com.valvesoftware.Steam #org.shotcut.Shotcut org.kde.kdenlive
+		sudo apt install -y plymouth-themes
+		sudo plymouth-set-default-theme bgrt
+		# then run "sudo vi /etc/default/grub" , add "splash" to GRUB_CMDLINE_LINUX_DEFAULT , then run "sudo update-grub"
 		## Debian KDE
 		if [ "${DSKTP}" = "plasma" ]; then
 			sudo apt purge -y firefox-esr konqueror juk dragonplayer gimp
@@ -123,6 +126,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		elif [ "${DSKTP}" = "gnome" ]; then
 			sudo apt purge -y firefox-esr
 			sudo apt install -y gnome-boxes
+			sudo apt install -y gnome-shell-extension-appindicator gnome-shell-extension-desktop-icons-ng gnome-shell-extension-manager
 			# gsettings get org.gnome.software packaging-format-preference
 			gsettings set org.gnome.software packaging-format-preference "['flatpak:flathub', 'flatpak', 'deb']"
 		fi
