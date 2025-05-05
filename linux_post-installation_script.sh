@@ -120,6 +120,9 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		## Debian KDE
 		if [ "${DSKTP}" = "plasma" ]; then
 			sudo apt purge -y firefox-esr konqueror juk dragonplayer gimp
+			sudo apt install -y pipewire-audio wireplumber pipewire-pulse pipewire-alsa libspa-0.2-bluetooth
+			sudo systemctl enable --now wireplumber pipewire
+			sudo systemctl disable --now pulseaudio
 			sudo apt install -y krdp
 			flatpak install flathub -y org.gnome.Boxes
 		## Debian GNOME
@@ -156,9 +159,10 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 	elif [ "${OS}" = "Fedora Linux" ]; then
 		sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 		#sudo dnf config-manager setopt fedora-cisco-openh264.enabled=1
+		#sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
+		sudo dnf install -y libavcodec-freeworld
 		sudo dnf update -y @core
 		sudo dnf remove -y libreoffice* rhythmbox* dragon* elisa-player*
-		sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
 		sudo dnf update -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 		sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-plugin-libav --exclude=gstreamer1-plugins-bad-free-devel
 		sudo dnf install -y lame\* --exclude=lame-devel
