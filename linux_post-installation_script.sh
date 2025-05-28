@@ -105,6 +105,16 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
 		sudo apt install -y --no-install-recommends r-base r-base-dev
 	
+	## Linux Mint
+	elif [ "${OS}" = "Linux Mint" ]; then
+		if [ "${DSKTP}" = "cinnamon" ]; then
+			sudo apt purge -y libreoffice* rhythmbox*
+			sudo apt update && sudo apt dist-upgrade -y
+			sudo apt install -y openssh-server # samba smbclient
+			sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode fonts-inter #ttf-mscorefonts-installer
+			flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut
+			flatpak install flathub -y org.gnome.Boxes
+	
 	## Debian
 	elif [ "${OS}" = "Debian GNU/Linux" ]; then
 		sudo apt update && sudo apt dist-upgrade -y
@@ -169,7 +179,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo dnf upgrade -y @multimedia
 		# sudo dnf install libva-intel-driver
 		sudo dnf install -y google-roboto* mozilla-fira* overpass-fonts overpass-mono-fonts redhat-text-fonts redhat-display-fonts google-carlito-fonts google-crosextra-caladea-fonts rsms-inter-fonts #xorg-x11-fonts-Type1
-		sudo dnf install -y curl cabextract xorg-x11-font-utils fontconfig https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
+		sudo dnf install -y curl cabextract fontconfig https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
 		sudo dnf clean all && sudo dnf upgrade --refresh -y
 		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam # org.kde.kdenlive org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.Thunderbird com.brave.Browser net.codelogistics.webapps
