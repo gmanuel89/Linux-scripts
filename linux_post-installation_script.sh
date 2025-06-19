@@ -218,7 +218,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 	
 	## Tuxedo OS
 	elif [ "${OS}" = "Tuxedo OS" ] && [ "${DSKTP}" = "plasma" ]; then
-		sudo apt purge libreoffice* elisa* kamoso*
+		sudo apt purge -y libreoffice* elisa* kamoso*
 		sudo apt update && sudo apt dist-upgrade -y
 		sudo apt install -y krdp merkuro
 		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
@@ -230,8 +230,8 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 
 	## Zorin OS
 	elif [ "${OS}" = "Zorin OS" ] && [ "${DSKTP}" = "zorin" ]; then
-		sudo apt purge libreoffice* gnome-photos rhythmbox*
-		sudo apt purge snapd* gnome-software-plugin-snap
+		sudo apt purge -y libreoffice* gnome-photos rhythmbox*
+		sudo apt purge -y  snapd* gnome-software-plugin-snap
 		sudo apt update && sudo apt dist-upgrade -y
 		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
 		sudo apt install -y fonts-open-sans ttf-mscorefonts-installer
