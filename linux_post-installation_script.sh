@@ -117,22 +117,20 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 	
 	## Debian
 	elif [ "${OS}" = "Debian GNU/Linux" ]; then
+		sudo apt purge -y libreoffice*
 		sudo apt update && sudo apt dist-upgrade -y
 		sudo apt install -y openssh-server # samba smbclient
 		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode fonts-inter #ttf-mscorefonts-installer
 		sudo apt clean && sudo apt autoclean && sudo apt autoremove
-		sudo apt install flatpak
+		sudo apt install -y flatpak
 		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-		flatpak install flathub -y org.mozilla.firefox org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop com.valvesoftware.Steam #org.shotcut.Shotcut org.kde.kdenlive
+		flatpak install flathub -y org.mozilla.firefox org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop com.valvesoftware.Steam org.kde.kdenlive #org.shotcut.Shotcut 
 		sudo apt install -y plymouth-themes
 		sudo plymouth-set-default-theme bgrt
 		# then run "sudo vi /etc/default/grub" , add "splash" to GRUB_CMDLINE_LINUX_DEFAULT , then run "sudo update-grub"
 		## Debian KDE
 		if [ "${DSKTP}" = "plasma" ]; then
 			sudo apt purge -y firefox-esr konqueror juk dragonplayer gimp
-			sudo apt install -y pipewire-audio wireplumber pipewire-pulse pipewire-alsa libspa-0.2-bluetooth
-			sudo systemctl enable --now wireplumber pipewire
-			sudo systemctl disable --now pulseaudio
 			sudo apt install -y krdp
 			flatpak install flathub -y org.gnome.Boxes
 		## Debian GNOME
