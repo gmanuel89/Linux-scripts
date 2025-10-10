@@ -60,7 +60,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 			sudo apt install -y openssh-server # samba smbclient
 			sudo apt install -y ttf-mscorefonts-installer fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
 			#sudo apt install -y ubuntu-restricted-addons
-			#sudo apt install -y steam
+			#sudo dpkg --add-architecture i386 && sudo apt install -y steam
 			sudo apt autoclean && sudo apt clean && sudo apt autoremove
 			## Ask for snap vs flatpak
 			read -p "Do you want to go with snaps (otherwise flatpak will be enabled)? " -n 1 -r
@@ -73,10 +73,10 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 				sudo apt update && sudo apt install -y flatpak
 				flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 				sudo apt purge snapd*
-				sudo apt install --no-install-recommends gnome-software gnome-software-plugin-flatpak
+				sudo apt install --install-suggests gnome-software
 				flatpak install flathub -y org.mozilla.firefox
-				sudo apt purge -y gnome-clocks eog evince gnome-calculator gnome-contacts gnome-calendar gnome-weather
-				flatpak install flathub -y org.gnome.clocks org.gnome.Loupe org.gnome.Papers org.gnome.Calculator org.gnome.Contacts org.gnome.Calendar org.gnome.Weather org.gnome.Maps org.gnome.Totem org.gnome.Evolution org.gnome.Boxes
+				sudo apt purge -y papers evince gnome-clocks loupe eog gnome-calculator gnome-contacts gnome-calendar gnome-weather gnome-maps evince showtime
+				flatpak install flathub -y org.gnome.clocks org.gnome.Loupe org.gnome.Papers org.gnome.Calculator org.gnome.Contacts org.gnome.Calendar org.gnome.Weather org.gnome.Maps org.gnome.Showtime org.gnome.Evolution org.gnome.Boxes
 				flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam # org.kde.kdenlive org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.Thunderbird com.brave.Browser com.vivaldi.Vivaldi net.codelogistics.webapps
 				# gsettings get org.gnome.software packaging-format-preference
 				gsettings set org.gnome.software packaging-format-preference "['flatpak:flathub', 'flatpak', 'deb', 'snap']"
@@ -111,6 +111,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 			sudo apt purge -y libreoffice* rhythmbox*
 			sudo apt update && sudo apt dist-upgrade -y
 			sudo apt install -y openssh-server # samba smbclient
+			sudo apt install -y xrdp
 			sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode fonts-inter #ttf-mscorefonts-installer
 			flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut
 			flatpak install flathub -y org.gnome.Boxes
@@ -136,8 +137,9 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		## Debian GNOME
 		elif [ "${DSKTP}" = "gnome" ]; then
 			sudo apt purge -y firefox-esr
+			sudo apt install -y gnome-software-plugin-flatpak
 			sudo apt install -y gnome-boxes
-			sudo apt install -y gnome-shell-extension-appindicator gnome-shell-extension-desktop-icons-ng gnome-shell-extension-manager
+			sudo apt install -y gnome-shell-extension-appindicator gnome-shell-extension-desktop-icons-ng gnome-shell-extension-manager #gnome-shell-extension-arc-menu gnome-shell-extension-caffeine gnome-shell-extension-dash-to-panel gnome-shell-extension-drive-menu gnome-shell-extension-places-menu gnome-shell-extension-weather
 			# gsettings get org.gnome.software packaging-format-preference
 			gsettings set org.gnome.software packaging-format-preference "['flatpak:flathub', 'flatpak', 'deb']"
 		fi
@@ -219,7 +221,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo apt purge -y libreoffice* elisa* kamoso*
 		sudo apt update && sudo apt dist-upgrade -y
 		sudo apt install -y krdp merkuro
-		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
+		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode fonts-inter
 		sudo apt install -y fonts-open-sans ttf-mscorefonts-installer
 		sudo apt autoclean && sudo apt clean && sudo apt autoremove
 		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
