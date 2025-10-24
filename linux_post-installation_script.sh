@@ -176,7 +176,6 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo dnf update -y @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 		sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-plugin-libav --exclude=gstreamer1-plugins-bad-free-devel
 		sudo dnf install -y lame\* --exclude=lame-devel
-		sudo dnf upgrade -y @multimedia
 		# sudo dnf install libva-intel-driver
 		sudo dnf install -y google-roboto* mozilla-fira* overpass-fonts overpass-mono-fonts redhat-text-fonts redhat-display-fonts google-carlito-fonts google-crosextra-caladea-fonts rsms-inter-fonts #xorg-x11-fonts-Type1
 		sudo dnf install -y curl cabextract fontconfig https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
@@ -193,7 +192,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 			gsettings set org.gnome.software packaging-format-preference "['flatpak:flathub', 'flatpak:fedora-testing', 'flatpak:fedora', 'rpm']"
 		## Fedora KDE
 		elif [ "${DSKTP}" = "plasma" ]; then	
-			sudo dnf install -y skanpage kid3 # samba-client samba
+			sudo dnf install -y skanpage # vlc haruna kdenlive samba-client samba
 			flatpak install flathub -y org.kde.kdenlive org.kde.haruna
 			flatpak install flathub -y org.gnome.Boxes
 		fi
