@@ -111,9 +111,9 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 			sudo apt purge -y libreoffice* rhythmbox*
 			sudo apt update && sudo apt dist-upgrade -y
 			sudo apt install -y openssh-server # samba smbclient
-			sudo apt install -y xrdp
+			sudo apt install -y xrdp pipewire-module-xrdp
 			sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode fonts-inter #ttf-mscorefonts-installer
-			flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut
+			flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.telegram.desktop org.shotcut.Shotcut #org.videolan.VLC 
 			flatpak install flathub -y org.gnome.Boxes
 	
 	## Debian
@@ -121,11 +121,13 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo apt purge -y libreoffice*
 		sudo apt update && sudo apt dist-upgrade -y
 		sudo apt install -y openssh-server # samba smbclient
-		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode fonts-inter #ttf-mscorefonts-installer
+		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode fonts-inter ttf-mscorefonts-installer
 		sudo apt clean && sudo apt autoclean && sudo apt autoremove
 		sudo apt install -y flatpak
 		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-		flatpak install flathub -y org.mozilla.firefox org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop com.valvesoftware.Steam org.kde.kdenlive #org.shotcut.Shotcut 
+		flatpak install flathub -y org.mozilla.firefox org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop com.valvesoftware.Steam org.kde.kdenlive #org.shotcut.Shotcut
+		sudo apt install -y vim
+		sudo apt install -y gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly libavcodec-extra
 		sudo apt install -y plymouth-themes
 		sudo plymouth-set-default-theme bgrt
 		# then run "sudo vi /etc/default/grub" , add "splash" to GRUB_CMDLINE_LINUX_DEFAULT , then run "sudo update-grub"
