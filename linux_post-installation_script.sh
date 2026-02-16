@@ -45,7 +45,7 @@ fi
 echo "Found an installation of '${OS}' (version ${VER}) with the '${DSKTP}' desktop environment"
 
 ## Ask for confirmation
-read -p "Is this the correct configuration? " -n 1 -r
+read -p "Is this the correct configuration?" -n 1 -r
 echo
 
 ## YES
@@ -63,7 +63,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 			#sudo dpkg --add-architecture i386 && sudo apt install -y steam
 			sudo apt autoclean && sudo apt clean && sudo apt autoremove
 			## Ask for snap vs flatpak
-			read -p "Do you want to go with snaps (otherwise flatpak will be enabled)? " -n 1 -r
+			read -p "Do you want to go with snaps (otherwise flatpak will be enabled)?" -n 1 -r
 			if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 				sudo snap install onlyoffice-desktopeditors spotify vlc telegram-desktop gnome-boxes # kdenlive libreoffice bitwarden thunderbird brave steam
 				sudo snap install shotcut --classic
@@ -77,7 +77,6 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 				flatpak install flathub -y org.mozilla.firefox
 				sudo apt purge -y papers evince gnome-clocks loupe eog gnome-calculator gnome-contacts gnome-calendar gnome-weather gnome-maps evince showtime
 				flatpak install flathub -y org.gnome.clocks org.gnome.Loupe org.gnome.Papers org.gnome.Calculator org.gnome.Contacts org.gnome.Calendar org.gnome.Weather org.gnome.Maps org.gnome.Showtime org.gnome.Evolution org.gnome.Boxes
-				flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam # org.kde.kdenlive org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.Thunderbird com.brave.Browser com.vivaldi.Vivaldi net.codelogistics.webapps
 				# gsettings get org.gnome.software packaging-format-preference
 				gsettings set org.gnome.software packaging-format-preference "['flatpak:flathub', 'flatpak', 'deb', 'snap']"
 			fi
@@ -90,9 +89,6 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 			sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
 			sudo apt install -y kubuntu-restricted-extras
 			sudo apt autoclean && sudo apt clean && sudo apt autoremove
-			flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-			flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut
-			flatpak install flathub -y org.gnome.Boxes
 		fi
 
 	## Ubuntu WSL
@@ -113,8 +109,6 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 			sudo apt install -y openssh-server # samba smbclient
 			sudo apt install -y xrdp pipewire-module-xrdp
 			sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode fonts-inter #ttf-mscorefonts-installer
-			flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.telegram.desktop org.shotcut.Shotcut #org.videolan.VLC 
-			flatpak install flathub -y org.gnome.Boxes
 	
 	## Debian
 	elif [ "${OS}" = "Debian GNU/Linux" ]; then
@@ -124,8 +118,6 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode fonts-inter ttf-mscorefonts-installer
 		sudo apt clean && sudo apt autoclean && sudo apt autoremove
 		sudo apt install -y flatpak
-		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-		flatpak install flathub -y org.mozilla.firefox org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop com.valvesoftware.Steam org.kde.kdenlive #org.shotcut.Shotcut
 		sudo apt install -y vim
 		sudo apt install -y gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly libavcodec-extra
 		sudo apt install -y plymouth-themes
@@ -135,7 +127,6 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		if [ "${DSKTP}" = "plasma" ]; then
 			sudo apt purge -y firefox-esr konqueror juk dragonplayer gimp
 			sudo apt install -y krdp
-			flatpak install flathub -y org.gnome.Boxes
 		## Debian GNOME
 		elif [ "${DSKTP}" = "gnome" ]; then
 			sudo apt purge -y firefox-esr
@@ -153,9 +144,6 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
 		#sudo apt install -y ubuntu-restricted-extras
 		sudo apt autoclean && sudo apt clean && sudo apt autoremove
-		flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut # org.kde.kdenlive net.codelogistics.webapps
-		flatpak install flathub -y org.gnome.Boxes
 	
 	## KDE neon
 	elif [ "${OS}" = "KDE neon" ] && [ "${DSKTP}" = "plasma" ]; then
@@ -163,9 +151,6 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo pkcon install -y kontact
 		sudo pkcon install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
 		sudo apt install -y fonts-open-sans ttf-mscorefonts-installer #it does not work with pkcon
-		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut
-		flatpak install flathub -y org.gnome.Boxes
 	
 	## Fedora workstation
 	elif [ "${OS}" = "Fedora Linux" ]; then
@@ -182,21 +167,17 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo dnf install -y google-roboto* mozilla-fira* overpass-fonts overpass-mono-fonts redhat-text-fonts redhat-display-fonts google-carlito-fonts google-crosextra-caladea-fonts rsms-inter-fonts #xorg-x11-fonts-Type1
 		sudo dnf install -y curl cabextract fontconfig https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
 		sudo dnf clean all && sudo dnf upgrade --refresh -y
-		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.videolan.VLC org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam # org.kde.kdenlive org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.Thunderbird com.brave.Browser net.codelogistics.webapps
 		## Fedora GNOME
 		if [ "${DSKTP}" = "gnome" ]; then
 			sudo dnf install -y simple-scan loupe gnome-tweaks gnome-boxes gnome-calculator gnome-contacts gnome-calendar gnome-weather gnome-maps gnome-clocks evolution # samba-client samba epiphany soundconverter mp3gain
 			sudo dnf install -y gnome-extensions-app gnome-shell-extension-appindicator gnome-shell-extension-drive-menu gnome-shell-extension-caffeine # gnome-shell-extension-places-menu
 			# flatpak install flathub -y org.gnome.Extensions # de.haeckerfelix.Fragments
-			# flatpak install flathub -y org.gnome.Boxes
 			# gsettings get org.gnome.software packaging-format-preference
 			gsettings set org.gnome.software packaging-format-preference "['flatpak:flathub', 'flatpak:fedora-testing', 'flatpak:fedora', 'rpm']"
 		## Fedora KDE
 		elif [ "${DSKTP}" = "plasma" ]; then	
 			sudo dnf install -y skanpage # vlc haruna kdenlive samba-client samba
-			flatpak install flathub -y org.kde.kdenlive org.kde.haruna
-			flatpak install flathub -y org.gnome.Boxes
+			flatpak install flathub -y org.kde.haruna
 		fi
 	
 	## openSUSE Tumbleweed KDE
@@ -225,9 +206,6 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode fonts-inter
 		sudo apt install -y fonts-open-sans ttf-mscorefonts-installer
 		sudo apt autoclean && sudo apt clean && sudo apt autoremove
-		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam # org.videolan.VLC
-		flatpak install flathub -y org.gnome.Boxes
 
 	## Zorin OS
 	elif [ "${OS}" = "Zorin OS" ] && [ "${DSKTP}" = "zorin" ]; then
@@ -237,14 +215,22 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
 		sudo apt install -y fonts-open-sans ttf-mscorefonts-installer
 		sudo apt autoclean && sudo apt clean && sudo apt autoremove
-		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-		flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam org.videolan.VLC
-		flatpak install flathub -y org.gnome.Boxes
 		# gsettings get org.gnome.software packaging-format-preference
 		gsettings set org.gnome.software packaging-format-preference "['flatpak:flathub', 'flatpak', 'deb', 'snap']"
 	
 	fi
-
+	
+	## Flatpak installation
+	read -p "Would you like to install a selection of Flatpak packages (from FlatHub)?" -n 1 -r
+	echo
+	## YES
+	if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
+	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+	flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam #org.videolan.VLC org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.firefox org.mozilla.Thunderbird com.brave.Browser net.codelogistics.webapps com.vivaldi.Vivaldi
+	flatpak install flathub -y org.gnome.Boxes
+	fi
+	
+	
 else
 echo "Aborting..."
 fi
