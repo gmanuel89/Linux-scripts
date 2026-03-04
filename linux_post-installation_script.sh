@@ -126,7 +126,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		## Debian KDE
 		if [ "${DSKTP}" = "plasma" ]; then
 			sudo apt purge -y firefox-esr konqueror juk dragonplayer gimp
-			sudo apt install -y krdp
+			sudo apt install -y krdp skanpage
 		## Debian GNOME
 		elif [ "${DSKTP}" = "gnome" ]; then
 			sudo apt purge -y firefox-esr
