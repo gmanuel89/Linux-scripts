@@ -53,40 +53,43 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 
 	## Ubuntu
 	if [ "${OS}" = "Ubuntu" ]; then
+		## Remove snap and replace it with flatpak
+		sudo apt autoremove --purge firefox*
+		sudo snap remove --purge firefox thunderbird snap-store bare gnome-42-2204 gtk-common-themes snapd-desktop-integration core22 snapd
+		sudo apt autoremove --purge snapd*
+		sudo apt-mark hold snapd
+		sudo rm -rf ~/snap
+		sudo rm -rf /snap /var/snap /var/lib/snapd /var/cache/snapd /usr/lib/snapd
+		sudo tee /etc/apt/preferences.d/nosnap.pref << 'EOF'
+Package: snapd
+Pin: release a=*
+Pin-Priority: -1
+EOF
+		sudo add-apt-repository ppa:mozillateam/ppa
+		sudo apt install firefox
+		sudo add-apt-repository -y ppa:flatpak/stable
+		sudo apt update && sudo apt install -y flatpak
+		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+		sudo apt install -y openssh-server # samba smbclient
+		sudo apt install -y ttf-mscorefonts-installer fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
+		sudo apt purge -y libreoffice*
+		sudo apt update && sudo apt dist-upgrade -y
+		sudo apt autoclean && sudo apt clean && sudo apt autoremove
 		## Ubuntu Desktop
 		if [ "${DSKTP}" = "ubuntu" ]; then
-			sudo apt purge -y libreoffice*
-			sudo apt update && sudo apt dist-upgrade -y
-			sudo apt install -y openssh-server # samba smbclient
-			sudo apt install -y ttf-mscorefonts-installer fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
 			#sudo apt install -y ubuntu-restricted-addons
 			#sudo dpkg --add-architecture i386 && sudo apt install -y steam
-			sudo apt autoclean && sudo apt clean && sudo apt autoremove
-			## Ask for snap vs flatpak
-			read -p "Do you want to go with snaps (otherwise flatpak will be enabled)?" -n 1 -r
-			if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
-				sudo snap install onlyoffice-desktopeditors spotify vlc telegram-desktop gnome-boxes # kdenlive libreoffice bitwarden thunderbird brave steam
-				sudo snap install shotcut --classic
-			else
-				sudo snap remove firefox snap-store
-				sudo add-apt-repository -y ppa:flatpak/stable
-				sudo apt update && sudo apt install -y flatpak
-				flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-				sudo apt purge snapd*
-				sudo apt install --install-suggests gnome-software
-				flatpak install flathub -y org.mozilla.firefox
-				sudo apt purge -y papers evince gnome-clocks loupe eog gnome-calculator gnome-contacts gnome-calendar gnome-weather gnome-maps evince showtime
-				flatpak install flathub -y org.gnome.clocks org.gnome.Loupe org.gnome.Papers org.gnome.Calculator org.gnome.Contacts org.gnome.Calendar org.gnome.Weather org.gnome.Maps org.gnome.Showtime org.gnome.Evolution org.gnome.Boxes
-				# gsettings get org.gnome.software packaging-format-preference
-				gsettings set org.gnome.software packaging-format-preference "['flatpak:flathub', 'flatpak', 'deb', 'snap']"
-			fi
+			sudo apt install --install-suggests gnome-software
+			sudo apt purge -y papers evince gnome-clocks loupe eog gnome-calculator gnome-contacts gnome-calendar gnome-weather gnome-maps evince showtime
+			flatpak install flathub -y org.gnome.clocks org.gnome.Loupe org.gnome.Papers org.gnome.Calculator org.gnome.Contacts org.gnome.Calendar org.gnome.Weather org.gnome.Maps org.gnome.Showtime org.gnome.Evolution org.gnome.Boxes
+			# gsettings get org.gnome.software packaging-format-preference
+			gsettings set org.gnome.software packaging-format-preference "['flatpak:flathub', 'flatpak', 'deb', 'snap']"
 		## Kubuntu Desktop
 		elif [ "${DSKTP}" = "plasma" ]; then
 			sudo add-apt-repository ppa:kubuntu-ppa/backports
 			sudo add-apt-repository ppa:kubuntu-ppa/backports-extra
 			sudo apt update && sudo apt dist-upgrade -y
 			sudo apt install -y kontact kalendar
-			sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
 			sudo apt install -y kubuntu-restricted-extras
 			sudo apt autoclean && sudo apt clean && sudo apt autoremove
 		fi
