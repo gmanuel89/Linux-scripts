@@ -164,7 +164,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 		sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-plugin-libav --exclude=gstreamer1-plugins-bad-free-devel
 		sudo dnf install -y lame\* --exclude=lame-devel
 		# sudo dnf install libva-intel-driver
-		sudo dnf install -y google-roboto* mozilla-fira* overpass-fonts overpass-mono-fonts redhat-text-fonts redhat-display-fonts google-carlito-fonts google-crosextra-caladea-fonts rsms-inter-fonts #xorg-x11-fonts-Type1
+		sudo dnf install -y google-roboto* fira-code-fonts overpass-fonts overpass-mono-fonts redhat-text-fonts redhat-display-fonts google-carlito-fonts google-crosextra-caladea-fonts rsms-inter-fonts #xorg-x11-fonts-Type1
 		sudo dnf install -y curl cabextract fontconfig https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
 		sudo dnf clean all && sudo dnf upgrade --refresh -y
 		## Fedora GNOME
