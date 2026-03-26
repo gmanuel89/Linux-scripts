@@ -55,7 +55,15 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 	if [ "${OS}" = "Ubuntu" ]; then
 		## Remove snap and replace it with flatpak
 		sudo apt autoremove --purge firefox*
-		sudo snap remove --purge firefox thunderbird snap-store bare gnome-42-2204 gtk-common-themes snapd-desktop-integration core22 snapd
+		sudo snap remove --purge firefox
+		sudo snap remove --purge thunderbird
+		sudo snap remove --purge snap-store
+		sudo snap remove --purge bare
+		sudo snap remove --purge gnome-42-2204
+		sudo snap remove --purge gtk-common-themes
+		sudo snap remove --purge snapd-desktop-integration
+		sudo snap remove --purge core22
+		sudo snap remove --purge snapd
 		sudo apt autoremove --purge snapd*
 		sudo apt-mark hold snapd
 		sudo rm -rf ~/snap
