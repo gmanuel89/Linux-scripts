@@ -75,7 +75,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 			sudo add-apt-repository ppa:kubuntu-ppa/backports
 			sudo add-apt-repository ppa:kubuntu-ppa/backports-extra
 			sudo apt update && sudo apt dist-upgrade -y
-			sudo apt install -y kontact kalendar
+			sudo apt install -y kontact kdeconnect krdp
 			sudo apt install -y kubuntu-restricted-extras
 			sudo apt autoclean && sudo apt clean && sudo apt autoremove
 		fi
@@ -215,7 +215,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 	## YES
 	if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-	flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam #org.videolan.VLC org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.firefox org.mozilla.Thunderbird com.brave.Browser net.codelogistics.webapps com.vivaldi.Vivaldi
+	flatpak install flathub -y org.onlyoffice.desktopeditors com.spotify.Client org.kde.kdenlive org.telegram.desktop org.shotcut.Shotcut com.valvesoftware.Steam org.videolan.VLC #org.libreoffice.LibreOffice com.bitwarden.desktop org.mozilla.firefox org.mozilla.Thunderbird com.brave.Browser net.codelogistics.webapps com.vivaldi.Vivaldi org.localsend.localsend_app org.jellyfin.JellyfinDesktop io.github.mhogomchungu.media-downloader us.zoom.Zoom
 	flatpak install flathub -y org.gnome.Boxes
 	fi
 	
