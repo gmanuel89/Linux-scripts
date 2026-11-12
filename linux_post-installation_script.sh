@@ -51,35 +51,6 @@ echo
 ## YES
 if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 
-	## Ubuntu
-	if [ "${OS}" = "Ubuntu" ]; then
-		sudo add-apt-repository -y ppa:flatpak/stable
-		sudo apt update && sudo apt install -y flatpak
-		flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-		sudo apt install -y openssh-server # samba smbclient
-		sudo apt install -y ttf-mscorefonts-installer fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode
-		sudo apt purge -y libreoffice*
-		sudo apt update && sudo apt dist-upgrade -y
-		sudo apt autoclean && sudo apt clean && sudo apt autoremove
-		## Ubuntu Desktop
-		if [ "${DSKTP}" = "ubuntu" ]; then
-			#sudo apt install -y ubuntu-restricted-addons
-			#sudo dpkg --add-architecture i386 && sudo apt install -y steam
-			sudo apt install --install-suggests gnome-software
-			sudo apt purge -y papers evince gnome-clocks loupe eog gnome-calculator gnome-contacts gnome-calendar gnome-weather gnome-maps evince showtime
-			flatpak install flathub -y org.gnome.clocks org.gnome.Loupe org.gnome.Papers org.gnome.Calculator org.gnome.Contacts org.gnome.Calendar org.gnome.Weather org.gnome.Maps org.gnome.Showtime org.gnome.Evolution org.gnome.Boxes
-			# gsettings get org.gnome.software packaging-format-preference
-			gsettings set org.gnome.software packaging-format-preference "['flatpak:flathub', 'flatpak', 'deb', 'snap']"
-		## Kubuntu Desktop
-		elif [ "${DSKTP}" = "plasma" ]; then
-			sudo add-apt-repository ppa:kubuntu-ppa/backports
-			sudo add-apt-repository ppa:kubuntu-ppa/backports-extra
-			sudo apt update && sudo apt dist-upgrade -y
-			sudo apt install -y kontact kdeconnect krdp
-			sudo apt install -y kubuntu-restricted-extras
-			sudo apt autoclean && sudo apt clean && sudo apt autoremove
-		fi
-
 	## Ubuntu WSL
 	elif [ "${OS}" = "Ubuntu" ] && [ "${DSKTP}" = "WSL" ]; then
 		sudo apt update && sudo apt dist-upgrade -y
@@ -97,34 +68,7 @@ if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
 			sudo apt update && sudo apt dist-upgrade -y
 			sudo apt install -y openssh-server # samba smbclient
 			sudo apt install -y xrdp pipewire-module-xrdp
-			sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode fonts-inter #ttf-mscorefonts-installer
-	
-	## Debian
-	elif [ "${OS}" = "Debian GNU/Linux" ]; then
-		sudo apt purge -y libreoffice*
-		sudo apt update && sudo apt dist-upgrade -y
-		sudo apt install -y openssh-server # samba smbclient
-		sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode fonts-inter ttf-mscorefonts-installer
-		sudo apt clean && sudo apt autoclean && sudo apt autoremove
-		sudo apt install -y flatpak
-		sudo apt install -y vim
-		sudo apt install -y gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly libavcodec-extra
-		sudo apt install -y plymouth-themes
-		sudo plymouth-set-default-theme bgrt
-		# then run "sudo vi /etc/default/grub" , add "splash" to GRUB_CMDLINE_LINUX_DEFAULT , then run "sudo update-grub"
-		## Debian KDE
-		if [ "${DSKTP}" = "plasma" ]; then
-			sudo apt purge -y firefox-esr konqueror juk dragonplayer gimp
-			sudo apt install -y krdp skanpage
-		## Debian GNOME
-		elif [ "${DSKTP}" = "gnome" ]; then
-			sudo apt purge -y firefox-esr
-			sudo apt install -y gnome-software-plugin-flatpak
-			sudo apt install -y gnome-boxes
-			sudo apt install -y gnome-shell-extension-appindicator gnome-shell-extension-desktop-icons-ng gnome-shell-extension-manager #gnome-shell-extension-arc-menu gnome-shell-extension-caffeine gnome-shell-extension-dash-to-panel gnome-shell-extension-drive-menu gnome-shell-extension-places-menu gnome-shell-extension-weather
-			# gsettings get org.gnome.software packaging-format-preference
-			gsettings set org.gnome.software packaging-format-preference "['flatpak:flathub', 'flatpak', 'deb']"
-		fi
+			sudo apt install -y fonts-noto fonts-crosextra-carlito fonts-crosextra-caladea fonts-croscore fonts-firacode fonts-inter ttf-mscorefonts-installer
 	
 	## Pop!_OS
 	elif [ "${OS}" = "Pop!_OS" ] && [ "${DSKTP}" = "pop" ]; then
