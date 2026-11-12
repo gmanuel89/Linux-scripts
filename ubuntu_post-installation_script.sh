@@ -33,3 +33,12 @@ flatpak install flathub -y org.gnome.clocks org.gnome.Loupe org.gnome.Papers org
 ## Set Software to prefer flatpak
 # gsettings get org.gnome.software packaging-format-preference
 gsettings set org.gnome.software packaging-format-preference "['flatpak:flathub', 'flatpak', 'deb', 'snap']"
+
+
+### Release Upgrade
+# Temporarily lift the Snap block before upgrading
+sudo rm /etc/apt/preferences.d/nosnap.pref
+sudo apt-mark unhold snapd
+# Run the Ubuntu release upgrade normally
+sudo do-release-upgrade # or use the graphical Software Updater prompt
+# Re-run the Snap cleanup and pin script
